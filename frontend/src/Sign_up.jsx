@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Signup() {
+
+    let navigate = useNavigate()
+    const notify = () => toast("Wow so easy!");
+
+
+
     const {
         register,
         handleSubmit,
@@ -11,15 +21,21 @@ function Signup() {
     } = useForm();
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:5000/sign_in" , data).then((res) => {
-            console.log( res.data);
-            
-        })        
+        axios.post("http://localhost:5000/sign_up", data).then((res) => {
+            console.log(res.data);
+
+
+        })
+
         reset();
     };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+            <div className='fixed top-0 left-0 bg-green-600 w-full flex justify-end px-3 max py-2'> <button className='px-3 py-0.5 rounded-md cursor-pointer font-bold bg-black text-white'
+                onClick={() => navigate("/")} >Log_in</button> </div>
+            <ToastContainer position="top-center" autoClose={3000} />
+
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="w-full max-w-md bg-white rounded-lg shadow-md p-8"
